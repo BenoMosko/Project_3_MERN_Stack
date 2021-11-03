@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://Admin:Dallas41@sarajevo.nyyt3.mongodb.net/MoviesDB?retryWrites=true&w=majority",
+    "jwtSecret": "mysecretToken"
+}
