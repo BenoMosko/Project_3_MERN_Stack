@@ -1,25 +1,38 @@
 const express = require('express');
-const movieBL = require('../../models/MovieBL');
+const subscriptionBL = require('../../models/SubscriptionBL');
 const router = express.Router();
 
 router.route('/').get(function(request, response)
     {
-        movieBL.getMovies().then(data =>
+        subscriptionBL.getSubscriptions().then(data =>
             {
                 return response.json(data);
             })
     })
 
 
-router.route('/:id').get(function(request, response)
+router.route('/:id')
+    .get(function(req, resp)
     {
-        let id = request.params.id;
+        let id = req.params.id;
 
-        movieBL.getMovie(id).then(data =>
+       subscriptionBL.getSubscription(id).then(data =>
             {
-                return response.json(data);
+                return resp.json(data);
             })
     })
+
+    router.route('/members/:id')
+    .get(function(req, resp)
+    {
+        let id = req.params.id;
+
+       subscriptionBL.getSubscriptionByMemderId(id).then(data =>
+            {
+                return resp.json(data);
+            })
+    })
+
 
 
 router.route('/:id')
@@ -29,7 +42,7 @@ router.route('/:id')
 
         console.log(id)
 
-        movieBL.deleteMovie(id).then(data =>
+        subscriptionBL.deleteSubscription(id).then(data =>
             {
                 return resp.json(data);
             })
@@ -43,7 +56,7 @@ router.route('/:id')
         let id = req.params.id;
 
 
-        movieBL.updateMovie(id,obj).then(data =>
+        subscriptionBL.updateSubscription(id,obj).then(data =>
             {
                 return resp.json(data);
             })
@@ -56,7 +69,7 @@ router.route('/')
         let obj = req.body;
         console.log(obj);
 
-        movieBL.addMovie(obj).then(data =>
+        subscriptionBL.addSubscription(obj).then(data =>
             {
                 return resp.json(data);
             })

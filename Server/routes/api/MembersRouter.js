@@ -1,23 +1,25 @@
 const express = require('express');
-const movieBL = require('../../models/MovieBL');
+const memberBL = require('../../models/MemberBL');
 const router = express.Router();
 
-router.route('/').get(function(request, response)
+router.route('/')
+    .get(function(req, resp)
     {
-        movieBL.getMovies().then(data =>
+        memberBL.getMembers().then(data =>
             {
-                return response.json(data);
+                return resp.json(data);
             })
     })
 
 
-router.route('/:id').get(function(request, response)
+router.route('/:id')
+    .get(function(req, resp)
     {
-        let id = request.params.id;
+        let id = req.params.id;
 
-        movieBL.getMovie(id).then(data =>
+        memberBL.getMember(id).then(data =>
             {
-                return response.json(data);
+                return resp.json(data);
             })
     })
 
@@ -29,7 +31,7 @@ router.route('/:id')
 
         console.log(id)
 
-        movieBL.deleteMovie(id).then(data =>
+        memberBL.deleteMember(id).then(data =>
             {
                 return resp.json(data);
             })
@@ -43,7 +45,7 @@ router.route('/:id')
         let id = req.params.id;
 
 
-        movieBL.updateMovie(id,obj).then(data =>
+        memberBL.updateMember(id,obj).then(data =>
             {
                 return resp.json(data);
             })
@@ -56,7 +58,7 @@ router.route('/')
         let obj = req.body;
         console.log(obj);
 
-        movieBL.addMovie(obj).then(data =>
+        memberBL.addMember(obj).then(data =>
             {
                 return resp.json(data);
             })

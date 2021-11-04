@@ -1,4 +1,5 @@
 const MovieModel = require('./MovieModel');
+const SubscriptionsMovie = require('./SubscriptionModel');
 
 const getMovies = () =>
 {
@@ -59,7 +60,7 @@ const addMovie = (obj) =>
             }
             else
             {
-                resolve("Created");
+                resolve(" Movie Added");
             }
         });
     })
@@ -86,7 +87,7 @@ const updateMovie = (id,obj) =>
             }
             else
             {
-                resolve("Updated");
+                resolve("Movie Updated");
             }
         })
 
@@ -105,16 +106,16 @@ const deleteMovie = (id) =>
                 reject(err)
             }
             else {
-                resolve('Deleted');
+                resolve('Movie Deleted');
             }
         }).then(
-            SubscriptionsMovie.deleteMany({ movie: id }, function (err)
+            SubscriptionsMovie.deleteMany({ MovieID : id }, function (err)
             {
                 if (err) {
                     reject(err)
                 }
                 else {
-                    resolve('Deleted');
+                    resolve('Subscription Deleted');
                 }
             })
         );
