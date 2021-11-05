@@ -4,23 +4,21 @@ const config = require('config');
 module.exports = function (request, response, next)
 {
     const token = request.header('x-auth-token');
-
-    if (!token)
+    if(!token)
     {
         return response.status(401).json({ msg: 'No token, authorization denied' });
     }
-
     try
     {
         jwt.verify(token, config.get('jwtSecret'), (error, decoded) =>
         {
             if (error)
             {
-                return res.status(401).json({ msg: 'Token is not valid' });
+                return response.status(401).json({ msg: 'Token is not valid' });
             }
             else
             {
-                req.user = decoded.user;
+                request.user = decoded.user;
                 next();
             }
         });
@@ -28,6 +26,6 @@ module.exports = function (request, response, next)
     catch (err)
     {
         console.error('something wrong with auth middleware');
-        res.status(500).json({ msg: 'Server Error' });
+        response.status(500).json({ msg: 'Server Error' });
     }
 };

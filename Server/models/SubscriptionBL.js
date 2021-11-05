@@ -14,11 +14,11 @@ const getSubscriptions = () =>
             {
                 resolve(data);
             }
-        }).populate('Members', ['Name', 'Email', 'City']).populate('Movies', ['Name', 'Genres', 'Year_Premiered', 'Image']);
+        }).populate('MemberID', ['Name', 'Email', 'City']).populate('MovieID', ['Name', 'Genres', 'Year_Premiered', 'Image']);
     })
 }
 
-const getSubscription= (id) =>
+const getSubscription = (id) =>
 {
     return new Promise((resolve, reject) =>
     {
@@ -32,12 +32,9 @@ const getSubscription= (id) =>
             {
                 resolve(data);
             }
-        }).populate('Members', ['Name', 'Email', 'City']).populate('Movies', ['Name', 'Genres', 'Year_Premiered', 'Image']);
+        }).populate('MemberID', ['Name', 'Email', 'City']).populate('MovieID', ['Name', 'Genres', 'Year_Premiered', 'Image']);
     })
 }
-
-
-
 
 const addSubscription = (obj) =>
 {
@@ -64,9 +61,6 @@ const addSubscription = (obj) =>
     })
 }
 
-
-
-
 const updateSubscription = (id,obj) =>
 {
     return new Promise((resolve, reject) =>
@@ -91,25 +85,23 @@ const updateSubscription = (id,obj) =>
     })
 }
 
-
 const deleteSubscription = (id) =>
 {
     return new Promise((resolve, reject) =>
     {
-
         SubscriptionModel.findByIdAndDelete(id, function(err)
-      {
+        {
           if(err)
           {
-              reject(err)
+            reject(err)
           }
           else
           {
-              resolve("Subscription Deleted");
+            resolve("Subscription Deleted");
           }
-      })
+        })
     })
 }
 
 
-module.exports =  {getSubscriptions, getSubscription, addSubscription, deleteSubscription, updateSubscription};
+module.exports = {getSubscriptions, getSubscription, addSubscription, deleteSubscription, updateSubscription};

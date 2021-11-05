@@ -44,7 +44,7 @@ const addMovie = (obj) =>
     {
 
         let movie = new MovieModel({
-            Name : obj.name,
+            Name : obj.Name,
             Year_Premiered : obj.Year_Premiered,   
             Genres: obj.Genres,
             Image: obj.Image
@@ -75,7 +75,7 @@ const updateMovie = (id,obj) =>
     {
 
         MovieModel.findByIdAndUpdate(id, {
-            Name : obj.name,
+            Name : obj.Name,
             Year_Premiered : obj.Year_Premiered,   
             Genres: obj.Genres,
             Image: obj.Image

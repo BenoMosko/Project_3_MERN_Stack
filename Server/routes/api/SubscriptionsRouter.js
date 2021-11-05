@@ -33,8 +33,6 @@ router.route('/:id')
             })
     })
 
-
-
 router.route('/:id')
     .delete(function(req, resp)
     {
