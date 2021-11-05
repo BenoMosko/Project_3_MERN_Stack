@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 
-function AddMovie(props) {
-
+function AddMovie()
+{
   const fullname = sessionStorage.getItem('name');
   const token = sessionStorage.getItem('token');
   const history = useHistory();
@@ -15,10 +15,7 @@ function AddMovie(props) {
       if(!token || !fullname)
       {
         history.push("/login")
-      }
-  
-       
-      
+      } 
     }, [])
   
   const customSubmit = async(e) =>
@@ -30,14 +27,12 @@ function AddMovie(props) {
       Year_Premiered: movie.Year_Premiered,
       Image: movie.Image
     }
-    await axios.post('/api/movies', obj);
-    
+    await axios.post('/api/movies', obj); 
     history.push('/movies');
   }
 
   const cancelMovie = () =>
   {
-    
     history.push('/movies');
   }
  
@@ -50,22 +45,22 @@ function AddMovie(props) {
             
           <form className='form' onSubmit={e => customSubmit(e)} >
             <div className='form-group'>
-              Name: &nbsp; &nbsp; <input type="text" onChange={e => setMovie({ ...movie, Name: e.target.value })} /></div>
+              Name: &nbsp; &nbsp; <input type="text" onChange={e => setMovie({...movie, Name : e.target.value})}/>
+            </div>
             <div className='form-group'>
-              Genres: &nbsp; <input type="text" onChange={e => setMovie({ ...movie, Genres: e.target.value })} /></div>
+              Genres: &nbsp; <input type="text" onChange={e => setMovie({...movie, Genres : e.target.value})}/>
+            </div>
             <div className='form-group' >
-              Premiered: <input type="text" onChange={e => setMovie({ ...movie, Year_Premiered: e.target.value })} /></div>
+              Premiered: <input type="text" onChange={e => setMovie({...movie, Year_Premiered : e.target.value})}/>
+            </div>
             <div className='form-group'>
-            Image: &nbsp; <input type="text" onChange={e => setMovie({ ...movie, Image: e.target.value })} /></div>
+              Image: &nbsp; <input type="text" onChange={e => setMovie({...movie, Image : e.target.value})}/>
+            </div>
             
        
-            <input type="submit" className='btn btn-primary' value="Save Data" /> &nbsp;
+            <input type="submit" className='btn btn-primary' value="Save Data"/>&nbsp;
             <input type = "button" className='btn btn-primary btn-dark' value="Cancel" onClick={cancelMovie} />
-          </form> 
-         
-  
-            
-           
+          </form>  
         </div>
          
       </div>

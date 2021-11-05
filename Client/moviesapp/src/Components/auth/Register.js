@@ -3,47 +3,47 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
-
 export const Register = () =>
 {
   const history = useHistory();
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password2: ''
+        name : "",
+        email : "",
+        password : "",
+        password2 : ""
     });
 
     
 
-    const { name, email, password, password2 } = formData;
+    const {name, email, password, password2} = formData;
 
     const onChange = (e) =>
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-   
+      setFormData({...formData, [e.target.name] : e.target.value });
+
       const onSubmit = async(e) =>
       {
           e.preventDefault();
-          if (password !== password2) {
-              alert('Passwords do not match')
+          if(password !== password2)
+          {
+            alert('Passwords do not match')
           }
-          else {
-              console.log(formData);
-              const newUser = {name, email, password}
-              try {
-  
-                  const config = {
-                      headers: {
-                          'Content-Type': 'application/json'
-                      }
-                  }
-                  const res = await axios.post('/api/users', newUser, config);
+          else
+          {
+            console.log(formData);
+            const newUser = {name, email, password}
+            try
+            {
+              const config =
+              {
+                headers : {'Content-Type': 'application/json'}
+              }
+                const res = await axios.post('/api/users', newUser, config);
                 console.log(res.data);
-                history.push("/movies");
-                  
-                  
-              } catch (err) {
-                  console.error(err.res.data);
+                history.push('/movies'); 
+              }
+              catch(err)
+              {
+                console.error(err.res.data);
               }
           }
       };

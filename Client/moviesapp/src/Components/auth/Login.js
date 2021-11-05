@@ -6,58 +6,42 @@ import { useHistory } from 'react-router';
 
 export const Login = () =>
 {
-    
-    const [formData, setFormData] = useState({
-       name: '',
-        email: '',
-        password: '',
+  const [formData, setFormData] = useState({
+    name : "",
+    email : "",
+    password : "",
         
-    });
+  });
   const history = useHistory();
   const [showAlert, setShowAlert] = useState(false);
-  
+  const {name, email, password} = formData;
 
-    const { name, email, password } = formData;
-    
-    
+  const onChange = (e) =>
+  {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  }
 
-    const onChange = (e) =>
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-   
-    const onSubmit = async(e) =>
+  const onSubmit = async(e) =>
+  {
+    e.preventDefault();
+    const existingUser = {name, email, password};
+    try
     {
-      e.preventDefault();
-      const existingUser = { name, email, password };
-    
-        try {
-  
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-              }
-             
-            }
-            
-          const res = await axios.post('/api/auth', existingUser, config);
-        
-          console.log(res.data);
-          sessionStorage.setItem('name', res.data.name);
-          sessionStorage.setItem('token', res.data.tokenData)
-          history.push("/movies");
-           
-            
-        } catch (err) {
-          console.error(err.response.data);
-          setShowAlert(true);
-          
-          
-          
-        }
-
-       
-
-        
-    };
+      const config = {
+        headers : {'Content-Type' : 'application/json'}     
+      }  
+      const res = await axios.post('/api/auth', existingUser, config);
+      console.log(res.data);
+      sessionStorage.setItem('name', res.data.name);
+      sessionStorage.setItem('token', res.data.tokenData)
+      history.push("/movies");
+    }
+    catch(err)
+    {
+      console.error(err.res.data);
+      setShowAlert(true);  
+    }     
+  };
 
   return (
     <Fragment>
@@ -67,32 +51,16 @@ export const Login = () =>
       </p>
       <form className='form' onSubmit = {e=>onSubmit(e)}>
         <div className='form-group'>
-          <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={(e) => onChange(e)}
-            required
-          />
-         
+          <input type='email' placeholder='Email Address' name='email' value={email}onChange={(e) => onChange(e)} required/>
         </div>
         <div className='form-group'>
-          <input
-            type='password'
-            placeholder='Password'
-            name='password'
-            value={password}
-            onChange={(e) => onChange(e)}
-            required
-            minLength='6'
-          />
+          <input type='password' placeholder='Password' name='password' value={password} onChange={(e) => onChange(e)} required minLength='6'/>
         </div>
-        
         <input type='submit' className='btn btn-primary' value='Login' /> 
         {
           showAlert &&
-          <div> <br/>
+          <div>
+          <br/>
           <h3 className='alert-danger'> &nbsp;"Invalid email or password!"</h3></div>
         }
       </form>
